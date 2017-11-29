@@ -1,0 +1,103 @@
+{% extends "_project.html" %}
+{% set play = True %}
+{% block title %}Titanic{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style media="screen" type="text/css">
+  .titanic-results {
+    font-size: 600%;
+    font-weight: bold;
+    text-align: center;
+  }
+  .silhouette {
+    padding: 50px;
+    font-size: 350%;
+    text-align: center;
+    display: inline-block;
+  }
+  </style>
+{% endblock %}
+{% block js_scripts %}
+  {{ super() }}
+  <script src="/js/titanic.js" async></script>
+{% endblock %}
+{% block content %}
+  {{ super() }}
+  <div class="columns">
+    <div class="column is-one-third">
+      <h2 class="subtitle is-4">Would you survive ?</h2>
+      <div class="field">
+        <label class="label">Age</label>
+        <div class="control">
+          <input name="age" class="input" type="number" value="7">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Gender</label>
+        <div class="control">
+          <label class="radio">
+            <input type="radio" name="gender" value="0" checked>
+            Female
+          </label>
+          <label class="radio">
+            <input type="radio" name="gender" value="1">
+            Male
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Class</label>
+        <div class="control">
+          <label class="radio">
+            <input type="radio" name="pclass" value="1" checked>
+            First
+          </label>
+          <label class="radio">
+            <input type="radio" name="pclass" value="2">
+            Second
+          </label>
+          <label class="radio">
+            <input type="radio" name="pclass" value="3">
+            Third
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Fare</label>
+        <div class="control">
+          <input name="fare" class="input" type="number" value="7.2">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Embarked</label>
+        <div class="control">
+          <label class="radio">
+            <input type="radio" name="embarked" value="1" checked>
+            Ouest
+          </label>
+          <label class="radio">
+            <input type="radio" name="embarked" value="2">
+            East
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <button id="submit" class="button is-link">Submit</button>
+        </div>
+      </div>
+
+    </div>
+    <div class="column">
+      <p class="titanic-results">
+        <i class="fa fa-female silhouette wave" aria-hidden="true"></i>
+      </p>
+      <p class="titanic-results" id="results">--%</p>
+    </div>
+  </div>
+{% endblock %}
