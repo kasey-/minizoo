@@ -1,0 +1,11 @@
+.titanic-results {
+  font-size: 600%;
+  font-weight: bold;
+  text-align: center;
+}
+.silhouette {
+  padding: 50px;
+  font-size: 350%;
+  text-align: center;
+  display: inline-block;
+}

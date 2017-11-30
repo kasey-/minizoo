@@ -3,23 +3,11 @@
 {% block title %}Titanic{% endblock %}
 {% block head %}
   {{ super() }}
-  <style media="screen" type="text/css">
-  .titanic-results {
-    font-size: 600%;
-    font-weight: bold;
-    text-align: center;
-  }
-  .silhouette {
-    padding: 50px;
-    font-size: 350%;
-    text-align: center;
-    display: inline-block;
-  }
-  </style>
+  <link rel="stylesheet" href="/css/titanic.css">
 {% endblock %}
 {% block js_scripts %}
   {{ super() }}
-  <script src="/js/titanic.js" async></script>
+  <script src="/js/titanic.js"></script>
 {% endblock %}
 {% block content %}
   {{ super() }}
