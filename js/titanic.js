@@ -1,5 +1,5 @@
-$( document ).ready(function() {
-  $('input[name=gender]').click(function(){
+$(document).ready(function() {
+  $('input[name=gender]').on('click',function(){
     if($('input[name=gender]:checked').val() == 1){
       $('i.silhouette').removeClass("fa-female");
       $('i.silhouette').addClass("fa-male");
@@ -9,7 +9,7 @@ $( document ).ready(function() {
     }
   });
 
-  $("#submit").click(function() {
+  $("#submit").on('click',function() {
     const passanger = {
       age:$('input[name=age]').val(),
       sex:$('input[name=gender]:checked').val(),
@@ -17,14 +17,12 @@ $( document ).ready(function() {
       fare:$('input[name=fare]').val(),
       embarked:$('input[name=embarked]:checked').val()
     };
-    $.post( "http://127.0.0.1:5000/titanic",passanger)
-    .done(function(data){
-      $('#results').text(Math.round((data*100))+"%")
-    })
-    .fail(function(error){
-      console.log(error)
-    })
-    .always(function() {
-    });
+    qwest.post('http://127.0.0.1:5000/titanic',passanger)
+     .then(function(xhr, response) {
+        $('#results').text(Math.round((response*100))+"%");
+     })
+     .catch(function(e, xhr, response) {
+        console.log(e, xhr, response);
+     });
   });
 });
