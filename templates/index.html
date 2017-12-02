@@ -8,31 +8,35 @@
 }
 
 #wave_front, #wave_back {
-  transform: translateY(20px);
+  transform: translateY(100px);
 }
 
 @keyframes boat_move {
-  from {transform: translate(40px, -30px) scale(0.8);}
-  to   {transform: translate(40px, -50px) scale(0.8);}
+  from {transform: translate(45px, 0px) scale(0.8);}
+  to   {transform: translate(45px, 20px) scale(0.8);}
 }
 
   </style>
 {% endblock %}
 {% block content %}
-<div class="columns">
-  <div class="column is-two-thirds">
-    <h1 class="subtitle is-2">Welcome to my machine learning mini zoo</h1>
-    <h2 class="subtitle is-4">On this portfolio, you can find interactive
-      interfaces to play with machines learning exercises I practiced to learn
-      how to make learning machines. I advise you my favorite one.</h2>
-    <h2 class="subtitle is-4" style="text-align:right">
-      <a class="button is-large is-primary" href="/titanic/play.html">Try the titanic >></a>
-    </h2>
+<div class="tile is-ancestor">
+  <div class="tile is-8 is-parent">
+    <div class="tile is-child box">
+      <h1 class="subtitle is-2">Welcome to my machine learning mini zoo</h1>
+      <h2 class="subtitle is-4">On this portfolio, you can find interactive
+        interfaces to play with machines learning exercises I practiced to learn
+        how to make learning machines. I advise you my favorite one.</h2>
+      <h2 class="subtitle is-4" style="text-align:right">
+        <a class="button is-large is-primary" href="/titanic/play.html">Try the Titanic</a>
+      </h2>
+    </div>
   </div>
-  <div class="column">
-    <a href="/titanic/play.html">
-      {% include 'svg/boat.svg' %}
-    </a>
+  <div class="tile is-parent">
+    <div class="tile is-child box">
+      <a href="/titanic/play.html">
+        {% include 'svg/boat.svg' %}
+      </a>
+    </div>
   </div>
 </div>
 {% endblock %}
