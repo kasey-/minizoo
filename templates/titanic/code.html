@@ -1,0 +1,17 @@
+{% extends "_project.html" %}
+{% set code = True %}
+{% block title %}Titanic{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block js_scripts %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+    {{ super() }}
+    <pre>
+      {% filter escape %}
+{% include 'codes/titanic.py' %}
+      {% endfilter %}
+    </pre>
+{% endblock %}
