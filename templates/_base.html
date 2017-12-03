@@ -15,11 +15,20 @@
       <a class="navbar-item" href="/">
         My AI Minizoo
       </a>
+      <div class="navbar-burger burger" data-target="navMenu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
-    <div class="navbar-end">
-      <div class="navbar-item">
-        <div class="field is-grouped">
-          <a class="navbar-item" href="/titanic/play.html">Titanic</a>
+
+    <div class="navbar-menu" id="navMenu">
+      <div class="navbar-start">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="/">Projects</a>
+          <div class="navbar-dropdown is-boxed">
+            <a class="navbar-item" href="/titanic/play.html">Titanic</a>
+          </div>
         </div>
       </div>
     </div>
@@ -29,6 +38,7 @@
       {% block content %}{% endblock %}
     </div>
   </section>
+  <script type="text/javascript" src="/js/bulma-navbar.js"></script>
   {% block js_scripts %}{% endblock %}
   </body>
 </html>
