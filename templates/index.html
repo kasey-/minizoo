@@ -3,19 +3,18 @@
 {% block head %}
   {{ super() }}
   <style type="text/css">
-#boat {
-  animation: boat_move 3s linear infinite alternate;
-}
+    #boat {
+      animation: boat_move 3s linear infinite alternate;
+    }
 
-#wave_front, #wave_back {
-  transform: translateY(100px);
-}
+    #wave_front, #wave_back {
+      transform: translateY(100px);
+    }
 
-@keyframes boat_move {
-  from {transform: translate(45px, 0px) scale(0.8);}
-  to   {transform: translate(45px, 20px) scale(0.8);}
-}
-
+    @keyframes boat_move {
+      from {transform: translate(45px, 0px) scale(0.8);}
+      to   {transform: translate(45px, 20px) scale(0.8);}
+    }
   </style>
 {% endblock %}
 {% block content %}
