@@ -10,14 +10,14 @@ $(document).ready(function() {
   });
 
   $("#submit").on('click',function() {
-    const passanger = {
+    var passenger = {
       age:$('input[name=age]').val(),
       sex:$('input[name=gender]:checked').val(),
       pclass:$('input[name=pclass]:checked').val(),
       fare:$('input[name=fare]').val(),
       embarked:$('input[name=embarked]:checked').val()
     };
-    qwest.post('http://127.0.0.1:5000/titanic',passanger)
+    qwest.post('/titanic/passenger',passenger)
      .then(function(xhr, response) {
         $('#results').text(Math.round((response*100))+"%");
      })
