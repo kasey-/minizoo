@@ -1,0 +1,22 @@
+{% extends "_project.html" %}
+{% set play = True %}
+{% block title %}MNIST{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="/css/mnist.css">
+{% endblock %}
+{% block js_scripts %}
+  {{ super() }}
+  <script src="/js/mnist.js"></script>
+{% endblock %}
+{% block content %}
+  {{ super() }}
+  <div class="columns">
+    <div class="column is-one-third">
+      C1
+    </div>
+    <div class="column">
+      C2
+    </div>
+  </div>
+{% endblock %}
