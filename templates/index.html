@@ -15,6 +15,29 @@
       from {transform: translate(45px, 0px) scale(0.8);}
       to   {transform: translate(45px, 20px) scale(0.8);}
     }
+
+    #OneHand {
+      stroke-dasharray: 160;
+      stroke-dashoffset: 160;
+      animation: dash 2s linear forwards;
+    }
+
+    #Hand {
+      animation: moveHand 2s linear forwards;
+    }
+
+    @keyframes dash {
+      0%   { stroke-dashoffset: 160; }
+      20%  { stroke-dashoffset: 128; }
+      100% { stroke-dashoffset: 0; }
+    }
+
+    @keyframes moveHand {
+      0%   { }
+      20%  { transform: translate(-2px, 2px); }
+      100% { transform: translate(6px, -4px); }
+    }
+
   </style>
 {% endblock %}
 {% block content %}
