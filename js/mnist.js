@@ -44,14 +44,15 @@ $(document).ready(function() {
     context.clearRect( 0, 0, 280, 280 );
     context.fillStyle="white";
     context.fillRect(0,0,canvas.width,canvas.height);
+		$('#result').text('');
   });
 
   $('input[type="submit"]').on("click", function(){
     var canvasObj = document.getElementById("canvas");
     var img = canvasObj.toDataURL();
-    qwest.post("/mnist/number",{data:img})
+    qwest.post("/mnist/number",{'img':img})
     .then(function(xhr, response) {
-       $('#result').text('Predicted Output: '+response);
+       $('#result').text('Predicted Output: '+response[1]);
     })
     .catch(function(e, xhr, response) {
        console.log(e, xhr, response);

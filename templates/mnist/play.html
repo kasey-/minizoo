@@ -15,14 +15,15 @@
   {{ super() }}
   <div class="columns">
     <div class="column is-one-third">
+      <h2>Draw a number and send it for recognition</h2>
       <canvas id="canvas" width="280" height="280"></canvas>
-      <p>Draw the Digit inside this Box!</p>
       <p>
         <input class="button is-primary" type="submit" value="Predict">
         <input class="button is-danger"  type="reset"  value="Clear">
       </p>
     </div>
     <div class="column">
+      <h2>Number reconized</h2>
       <p id="result"></p>
     </div>
   </div>
