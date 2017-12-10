@@ -1,0 +1,34 @@
+#boat {
+  animation: boat_move 3s linear infinite alternate;
+}
+
+#wave_front, #wave_back {
+  transform: translateY(100px);
+}
+
+@keyframes boat_move {
+  from {transform: translate(45px, 0px) scale(0.8);}
+  to   {transform: translate(45px, 20px) scale(0.8);}
+}
+
+#OneHand {
+  stroke-dasharray: 160;
+  stroke-dashoffset: 160;
+  animation: dash 2s linear forwards;
+}
+
+#Hand {
+  animation: moveHand 2s linear forwards;
+}
+
+@keyframes dash {
+  0%   { stroke-dashoffset: 160; }
+  20%  { stroke-dashoffset: 128; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes moveHand {
+  0%   { }
+  36%  { transform: translate(4px, -52px); }
+  100% { transform: translate(72px, 22px); }
+}
