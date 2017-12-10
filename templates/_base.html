@@ -34,11 +34,23 @@
       </div>
     </div>
   </nav>
-  <section class="section">
-    <div class="container">
-      {% block content %}{% endblock %}
+
+  {% block body %}{% endblock %}
+
+  <footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <p>
+        Build by <a href="http://www.linkedin.com/in/lucas-fernandez-17825124">
+        Lucas Fernandez</a> using <a>Staticjinja</a>, <a href="https://bulma.io">
+        Bulma</a>, <a href="https://www.docker.com">Docker</a> for the website
+        and <a href="https://keras.io">Keras</a>, <a href="http://scikit-learn.org">
+        Scikit</a> for the machine learning.
+      </p>
     </div>
-  </section>
+  </div>
+</footer>
+
   <script type="text/javascript" src="/js/bulma-navbar.js"></script>
   {% include 'codes/analytics.js' %}
   {% block js_scripts %}{% endblock %}

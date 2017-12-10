@@ -4,36 +4,60 @@
   {{ super() }}
   <link rel="stylesheet" href="/css/index.css">
 {% endblock %}
-{% block content %}
-<div class="tile is-ancestor">
-  <div class="tile is-8 is-parent">
-    <div class="tile is-child box">
-      <h1 class="subtitle is-2">Welcome to my machine learning mini zoo</h1>
-      <h2 class="subtitle is-4">On this portfolio, you can find interactive
-        interfaces to play with machines learning exercises I practiced to learn
-        how to make learning machines. I advise you my favorite one.</h2>
-      <h2 class="subtitle is-4" style="text-align:right">
-        <a class="button is-large is-primary" href="/titanic/play.html">
-          Try the Titanic
-        </a>
+{% block body %}
+<section class="hero is-medium is-info is-bold">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title is-2">
+        My machine learning Minizoo
+      </h1>
+      <h2 class="subtitle is-4">
+        Discover here my last interactives experimentations with machine learning
       </h2>
     </div>
   </div>
-  <div class="tile is-parent">
-    <div class="tile is-child box">
-      <a href="/titanic/play.html">
-        {% include 'svg/boat.svg' %}
+</section>
+
+<section class="section">
+    <div class="container">
+
+      <a href="/titanic/play.html" class="media">
+        <figure class="media-left">
+          <p class="image is-128x128">
+            <img src="/img/titanic.png">
+          </p>
+        </figure>
+        <div class="media-content">
+          <div class="content">
+            <p class="title is-3">Titanic</p>
+            <p class="subtitle is-5">The sinking of the RMS Titanic is one of
+              the most infamous shipwrecks in history. On April 15, 1912,
+              during her maiden voyage, the Titanic sank after colliding with an
+              iceberg, killing 1502 out of 2224 passengers and crew. This
+              sensational tragedy shocked the international community and led to
+              better safety regulations for ships.</p>
+          </div>
+        </div>
       </a>
-    </div>
-  </div>
-</div>
-<div class="tile is-ancestor">
-  <div class="tile is-4 is-parent">
-    <div class="tile is-child box">
-      <a href="/mnist/play.html">
-        {% include 'svg/write.svg' %}
+
+      <a href="/mnist/play.html" class="media">
+        <figure class="media-left">
+          <p class="image is-128x128">
+            <img src="/img/mnist.png">
+          </p>
+        </figure>
+        <div class="media-content">
+          <div class="content">
+            <p class="title is-3">MNIST</p>
+            <p class="subtitle is-5">The MNIST database of handwritten digits,
+              available from this page, has a training set of 60,000 examples,
+              and a test set of 10,000 examples. It is a subset of a larger set
+              available from NIST. The digits have been size-normalized and
+              centered in a fixed-size image.</p>
+          </div>
+        </div>
       </a>
+
     </div>
-  </div>
-</div>
+</section>
 {% endblock %}

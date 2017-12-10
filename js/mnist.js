@@ -57,7 +57,7 @@ $(document).ready(function() {
     var img = canvasObj.toDataURL();
     qwest.post('/mnist/number',{'img':img})
     .then(function(xhr, response) {
-       $('#result').text('Predicted Output: '+response[1]);
+       $('#result').text(response[1]);
     })
     .catch(function(e, xhr, response) {
        console.log(e, xhr, response);

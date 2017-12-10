@@ -15,7 +15,7 @@
   {{ super() }}
   <div class="columns">
     <div class="column is-one-third">
-      <h2>Draw a number and send it for recognition</h2>
+      <p class="subtitle is-4">Draw a number and send it for recognition</a>
       <canvas id="canvas" width="280" height="280"></canvas>
       <p>
         <input class="button is-primary" type="submit" value="Predict">
@@ -23,8 +23,8 @@
       </p>
     </div>
     <div class="column">
-      <h2>Number reconized</h2>
-      <p id="result"></p>
+      <p class="subtitle is-4">Number reconized</p>
+      <p class="title is-1" id="result"></p>
     </div>
   </div>
 {% endblock %}

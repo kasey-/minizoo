@@ -1,26 +1,32 @@
 {% extends "_base.html" %}
-{% block content %}
-<h1 class="title">{% block title %}{% endblock %}</h1>
-<div class="tabs">
-  <ul>
-    <li {% if play %} class="is-active" {% endif %}>
-      <a href="play.html">
-        <span class="icon is-small"><i class="fa fa-gamepad"></i></span>
-        <span>Play with it</span>
-      </a>
-    </li>
-<!--    <li {% if manual %} class="is-active" {% endif %}>
-      <a href="man.html">
-        <span class="icon is-small"><i class="fa fa-book"></i></span>
-        <span>Manual</span>
-      </a>
-    </li> -->
-    <li {% if code %} class="is-active" {% endif %}>
-      <a href="code.html">
-        <span class="icon is-small"><i class="fa fa-file-code-o"></i></span>
-        <span>Code</span>
-      </a>
-    </li>
-  </ul>
-</div>
+{% block body %}
+<section class="section">
+  <div class="container">
+    <h1 class="title">{% block title %}{% endblock %}</h1>
+    <div class="tabs">
+      <ul>
+        <li {% if play %} class="is-active" {% endif %}>
+          <a href="play.html">
+            <span class="icon is-small"><i class="fa fa-gamepad"></i></span>
+            <span>Play with it</span>
+          </a>
+        </li>
+    <!--    <li {% if manual %} class="is-active" {% endif %}>
+          <a href="man.html">
+            <span class="icon is-small"><i class="fa fa-book"></i></span>
+            <span>Manual</span>
+          </a>
+        </li> -->
+        <li {% if code %} class="is-active" {% endif %}>
+          <a href="code.html">
+            <span class="icon is-small"><i class="fa fa-file-code-o"></i></span>
+            <span>Code</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    {% block content %}{% endblock %}
+  </div>
+</section>
 {% endblock %}
