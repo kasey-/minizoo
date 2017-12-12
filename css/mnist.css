@@ -3,3 +3,9 @@
   border-radius: 2px;
   cursor: crosshair;
 }
+
+#result {
+  font-size: 200px;
+  font-weight: bold;
+  font-family: monospace;
+}

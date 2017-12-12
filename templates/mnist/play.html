@@ -15,8 +15,10 @@
   {{ super() }}
   <div class="columns">
     <div class="column is-one-third">
-      <p class="subtitle is-4">Draw a number and send it for recognition</a>
-      <canvas id="canvas" width="280" height="280"></canvas>
+      <p class="subtitle is-4">Draw a number and send it for recognition</p>
+      <p>
+        <canvas id="canvas" width="280" height="280"></canvas>
+      </p>
       <p>
         <input class="button is-primary" type="submit" value="Predict">
         <input class="button is-danger"  type="reset"  value="Clear">
@@ -24,7 +26,7 @@
     </div>
     <div class="column">
       <p class="subtitle is-4">Number reconized</p>
-      <p class="title is-1" id="result"></p>
+      <p id="result">0</p>
     </div>
   </div>
 {% endblock %}
