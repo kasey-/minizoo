@@ -3,18 +3,65 @@
 {% block title %}Inception{% endblock %}
 {% block head %}
   {{ super() }}
+  <link rel="stylesheet" href="/css/dropzone.min.css">
 {% endblock %}
 {% block js_scripts %}
   {{ super() }}
+  <script src="/js/dropzone.min.js"></script>
+  <script>
+    function forEach(array, fn) {
+      for (var i = 0; i < array.length; i++)
+        fn(array[i], i);
+    }
+
+    function ready(fn) {
+      if (document.readyState != 'loading'){
+        fn();
+      } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', fn);
+      } else {
+        document.attachEvent('onreadystatechange', function() {
+          if (document.readyState != 'loading')
+            fn();
+        });
+      }
+    }
+
+    ready(function(){
+      var myDropzone = new Dropzone("#uploadArea", {
+        url: "http://127.0.0.1:5000/inception/picture",
+        acceptedFiles: "image/*",
+        previewTemplate: '<figure class="image preview is-512x512">'+
+        '<img data-dz-thumbnail></figure>',
+        thumbnailWidth: 512,
+        thumbnailHeight: 512
+      });
+
+      myDropzone.on("success", function(file) {
+        var result = "<ul>";
+        forEach(JSON.parse(file.xhr.response), function(item, i){
+          result += '<li>'+item['label']+' '+item['prob'].toFixed(2)+'% </li>';
+        });
+        document.querySelector('#result').innerHTML = result+'</ul>';
+      });
+
+      myDropzone.on("addedfile", function(file) {
+        if(myDropzone.files.length > 1) {
+          myDropzone.removeFile(myDropzone.files[0]);
+        }
+      });
+
+    });
+  </script>
 {% endblock %}
 {% block content %}
   {{ super() }}
   <div class="columns">
     <div class="column is-one-third">
-      <p class="subtitle is-4">Drop zone here</p>
+      <p class="subtitle is-4" id="uploadArea">Upload here</p>
     </div>
     <div class="column">
-      <p class="subtitle is-4">Result</p>
+      <p class="subtitle is-4" id="result">Result</p>
     </div>
   </div>
 {% endblock %}

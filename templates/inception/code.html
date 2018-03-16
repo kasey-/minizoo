@@ -1,6 +1,6 @@
 {% extends "_project.html" %}
 {% set code = True %}
-{% block title %}MNIST{% endblock %}
+{% block title %}Inception{% endblock %}
 {% block head %}
   {{ super() }}
 {% endblock %}
@@ -11,7 +11,7 @@
     {{ super() }}
     <pre>
       {% filter escape %}
-{% include 'codes/mnist.py' %}
+{% include 'codes/inception.py' %}
       {% endfilter %}
     </pre>
 {% endblock %}
