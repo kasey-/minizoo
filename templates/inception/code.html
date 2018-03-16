@@ -1,0 +1,17 @@
+{% extends "_project.html" %}
+{% set code = True %}
+{% block title %}MNIST{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block js_scripts %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+    {{ super() }}
+    <pre>
+      {% filter escape %}
+{% include 'codes/mnist.py' %}
+      {% endfilter %}
+    </pre>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "_project.html" %}
+{% set play = True %}
+{% block title %}Inception{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block js_scripts %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+  {{ super() }}
+  <div class="columns">
+    <div class="column is-one-third">
+      <p class="subtitle is-4">Drop zone here</p>
+    </div>
+    <div class="column">
+      <p class="subtitle is-4">Result</p>
+    </div>
+  </div>
+{% endblock %}
