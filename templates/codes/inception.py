@@ -1,23 +1,14 @@
 #Source: https://www.pyimagesearch.com/2017/03/20/imagenet-vggnet-resnet-inception-xception-keras/
 
-from flask import Flask
-from flask_cors import CORS
-from flask import request
-from flask import jsonify
-
 from keras.applications import InceptionV3
 from keras.applications import imagenet_utils
 from keras.applications.inception_v3 import preprocess_input
 from keras.preprocessing.image import img_to_array
 from keras.preprocessing.image import load_img
 import numpy as np
-import json
 
 global model
 model = InceptionV3()
-
-app = Flask(__name__)
-CORS(app)
 
 def reshapeImage(img):
 	preprocess = preprocess_input
@@ -36,9 +27,5 @@ def predict_image(image):
 		p.append({'label':label,'prob':prob*100})
 	return p
 
-
-@app.route('/inception/picture', methods=["POST"])
-def predict():
-    x = reshapeImage(request.files['img'])
-    y = predict_image(x)
-    return jsonify(y)
+x = reshapeImage("test_picture.png")
+print(predict_image(x))
