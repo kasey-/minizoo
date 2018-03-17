@@ -21,6 +21,7 @@ function ready(fn) {
 ready(function(){
   var myDropzone = new Dropzone("#uploadArea", {
     url: "/inception/picture",
+    paramName: "img",
     acceptedFiles: "image/*",
     previewTemplate: '<figure class="image preview is-512x512">'+
     '<img data-dz-thumbnail></figure>',
