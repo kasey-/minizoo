@@ -1,6 +1,8 @@
+
 function forEach(array, fn) {
-  for (var i = 0; i < array.length; i++)
+  for (var i = 0; i < array.length; i++){
     fn(array[i], i);
+  }
 }
 
 function ready(fn) {
