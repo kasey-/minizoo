@@ -53,5 +53,9 @@ ready(function(){
     if(myDropzone.files.length > 1) {
       myDropzone.removeFile(myDropzone.files[0]);
     }
+    var loading = '<span class="icon is-large">'+
+                    '<i class="fas fa-3x fa-spinner fa-pulse"></i>'+
+                  '</span>';
+    document.querySelector('#result').innerHTML = loading;
   });
 });
