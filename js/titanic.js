@@ -3,11 +3,9 @@ $(document).ready(function() {
     if($('input[name=gender]:checked').val() == 1){
       $('i.silhouette').removeClass("fa-female");
       $('i.silhouette').addClass("fa-male");
-      console.log("rm fem add mal");
     } else {
       $('i.silhouette').removeClass("fa-male");
       $('i.silhouette').addClass("fa-female");
-      console.log("rm mal add fem");
     }
   });
 
