@@ -45,6 +45,18 @@ $(document).ready(function(){
 		context.stroke();
 	};
 
+  // deactivate window drag if user touch in the canvas
+	document.body.addEventListener("touchstart", function (e) {
+	  if (e.target == canvas) e.preventDefault();
+	}, false);
+	document.body.addEventListener("touchend", function (e) {
+	  if (e.target == canvas) e.preventDefault();
+	}, false);
+	document.body.addEventListener("touchmove", function (e) {
+	  if (e.target == canvas) e.preventDefault();
+	}, false);
+
+  // Action management
   $('input[type="reset"]').on('click', function(){
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.fillStyle = 'white';
