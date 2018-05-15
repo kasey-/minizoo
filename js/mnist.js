@@ -1,11 +1,11 @@
-$(document).ready(function() {
+$(document).ready(function(){
 	var canvas  = document.querySelector('#canvas');
 	var context = canvas.getContext('2d');
 	canvas.width  = 280;
 	canvas.height = 280;
 
-	var Mouse = { x: 0, y: 0 };
-	var lastMouse = { x: 0, y: 0 };
+	var Mouse     = {x:0, y:0};
+	var lastMouse = {x:0, y:0};
 	context.fillStyle = 'white';
 	context.fillRect(0,0,canvas.width,canvas.height);
 	context.color     = 'black';
@@ -17,49 +17,49 @@ $(document).ready(function() {
     rect = canvas.getBoundingClientRect();
   });
 
-	canvas.addEventListener('mousemove', function(e) {
+	canvas.addEventListener('mousemove', function(e){
 		lastMouse.x = Mouse.x;
 		lastMouse.y = Mouse.y;
 		Mouse.x = e.pageX - rect.left;
 		Mouse.y = e.pageY - rect.top;
-	}, false );
+	}, false);
 
-	canvas.addEventListener('mousedown', function(e) {
-		canvas.addEventListener('mousemove', onPaint, false );
-	}, false );
+	canvas.addEventListener('mousedown', function(e){
+		canvas.addEventListener('mousemove', onPaint, false);
+	}, false);
 
-	canvas.addEventListener('mouseup', function() {
-		canvas.removeEventListener('mousemove', onPaint, false );
-	}, false );
+	canvas.addEventListener('mouseup', function(){
+		canvas.removeEventListener('mousemove', onPaint, false);
+	}, false);
 
-	var onPaint = function() {
+	var onPaint = function(){
 		context.lineWidth   = context.lineWidth;
 		context.lineJoin    = 'round';
 		context.lineCap     = 'round';
 		context.strokeStyle = context.color;
 
 		context.beginPath();
-		context.moveTo( lastMouse.x, lastMouse.y );
-		context.lineTo( Mouse.x, Mouse.y );
+		context.moveTo(lastMouse.x, lastMouse.y);
+		context.lineTo(Mouse.x, Mouse.y);
 		context.closePath();
 		context.stroke();
 	};
 
-  $('input[type="reset"]').on('click', function() {
-    context.clearRect( 0, 0, 280, 280 );
+  $('input[type="reset"]').on('click', function(){
+    context.clearRect(0, 0, canvas.width, canvas.height);
     context.fillStyle = 'white';
-    context.fillRect(0,0,canvas.width,canvas.height);
+    context.fillRect(0, 0, canvas.width, canvas.height);
 		$('#result').text('');
   });
 
   $('input[type="submit"]').on('click', function(){
     var canvasObj = document.getElementById('canvas');
     var img = canvasObj.toDataURL();
-    qwest.post('/mnist/number',{'img':img})
-    .then(function(xhr, response) {
+    qwest.post('/mnist/number', {'img':img})
+    .then(function(xhr, response){
        $('#result').text(response[1]);
     })
-    .catch(function(e, xhr, response) {
+    .catch(function(e, xhr, response){
        console.log(e, xhr, response);
     });
   });
