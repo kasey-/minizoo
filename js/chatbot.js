@@ -4,6 +4,15 @@ $(document).ready(function() {
   });
 
   $("#submit").on('click',function() {
+    send_message();
+  });
+
+  $("#chat_input").on('keydown',function(keyDown) {
+    if(keyDown.keyCode == 13)
+      send_message();
+  });
+
+  function send_message(){
     var chat_input = $("#chat_input").val();
     if(chat_input) {
       $("#chat_input").val('');
@@ -12,7 +21,7 @@ $(document).ready(function() {
         .then(handleResponse)
         .catch(handleError);
     }
-  });
+  }
 
   function add_message(message,is_chatbot){
     var html_message = "";
@@ -51,7 +60,7 @@ $(document).ready(function() {
     try {
       result = serverResponse.result.fulfillment.speech;
     } catch(error) {
-      result = "Something goes wrong sorry...";
+      result = "Something goes wrong sorry... "+error;
     }
     add_message(result,true);
   }
