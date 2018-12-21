@@ -1,0 +1,9 @@
+{% extends "_project.html" %}
+{% set code = True %}
+{% block title %}Prophet{% endblock %}
+{% block content %}
+    {{ super() }}
+    <pre>
+{% include 'codes/prophet.py' %}
+    </pre>
+{% endblock %}

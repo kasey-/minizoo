@@ -13,5 +13,5 @@ html-minifier --file-ext css  --input-dir output --output-dir output-min --remov
 cp -r img fonts output-min
 mkdir output-min/js
 for js in $(ls -1 js); do
-  uglifyjs js/$js --compress --mangle > output-min/js/$js
+  terser js/$js -c -m > output-min/js/$js
 done
