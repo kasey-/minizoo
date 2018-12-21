@@ -44,11 +44,15 @@ ready(function(){
             table = `${table}</tbody></table>`;
             $('#dataTable').html(table);
 
-            axios.post('/prophet/dataset', data)
+            axios.post('http://127.0.0.1:5000/prophet/dataset', data)
               .then(function (response) {
                 console.log(response.data);
-              })
-              .catch(function (error) {
+                axios.get(`http://127.0.0.1:5000/prophet/${response.data.id}/predict/12`).then(function (response) {
+                  console.log(response.data);
+                }).catch(function (error) {
+                  console.log(error);
+                });
+              }).catch(function (error) {
                 console.log(error);
               });
           }
