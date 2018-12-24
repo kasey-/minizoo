@@ -1,0 +1,29 @@
+{
+  "name": "minizoo",
+  "version": "1.0.0",
+  "description": "Lucas' machine learning portfolio (aka minizoo)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kasey-/minizoo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kasey-/minizoo/issues"
+  },
+  "homepage": "https://github.com/kasey-/minizoo#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "cash-dom": "^2.3.9",
+    "chartist": "^0.11.0",
+    "downsample-lttb": "0.0.1",
+    "dropzone": "^5.5.1",
+    "lodash": "^4.17.11",
+    "moment": "^2.23.0",
+    "papaparse": "^4.6.2"
+  }
+}
