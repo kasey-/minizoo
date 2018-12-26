@@ -1,3 +1,6 @@
 output*/
 .DS_Store
 analytics.js
+*.bundle.js
+node_modules
+package-lock.json

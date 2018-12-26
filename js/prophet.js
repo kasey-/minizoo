@@ -3,103 +3,144 @@ const axios = require('axios');
 const _ = require('lodash');
 const $ = require('cash-dom');
 const moment = require('moment');
-const dropzone = require('dropzone');
-const chartist = require('chartist');
-const lttb = require('downsample-lttb');
+const chart = require('chart.js');
 
-$(document).ready(function(){
-  const displayedSamples = 200;
-  const chartOpt = {
-    showPoint: false,
-    lineSmooth: true,
-    axisX: {
-      showGrid: false,
-      showLabel: true,
-      labelInterpolationFnc: function skipLabels(value, index) {
-        if(index % 400  === 0) {
-          if(value > 9999999999) value /= 1000;
-          return moment.unix(value).format('YYYY-DD-MM');
-        } else {
-          return null;
-        }
+/* *** Color palette *************** */
+const blue = [
+  'rgba(11,19,43,0.2)',     // #0b132b Maastricht Blue
+  'rgba(28,37,65,0.2)',     // #1c2541 Yankees Blue
+  'rgba(58,80,107,0.2)',    // #3a506b Independence
+  'rgba(91,192,190,0.2)',   // #5bc0be Sea Serpent
+  'rgba(111,255,233,0.2)'   // #6fffe9 Aquamarine
+];
+
+function constructTable(dataset) {
+  let table = `<p>${dataset.length} lines imported</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Line</th>
+        <th>Date</th>
+        <th>Value</th>
+        <th></th>
+      </tr>
+    </thead>
+  <tbody>`;
+  const nbRowDisplay = 8;
+  let idx = 1;
+  _.take(dataset,nbRowDisplay).forEach(function(value){
+    table = `${table}<tr>
+    <td>${idx++}</td>
+    <td>${value[0]}</td>
+    <td>${value[1]}</td>
+  </tr>`});
+  table = `${table}<tr><td> </td><td>...</td><td>...</td></tr>`;
+  idx = dataset.length -nbRowDisplay +1;
+  _.takeRight(dataset,nbRowDisplay).forEach(function(value){
+    table = `${table}<tr>
+    <td>${idx++}</td>
+    <td>${value[0]}</td>
+    <td>${value[1]}</td>
+  </tr>`});
+  table = `${table}</tbody></table>`;
+  $('#dataTable').html(table);
+}
+
+function constructGraphSource(dataset) {
+  const label = dataset.map(function(value,index) { return moment(value[0]).unix(); });
+  const serie = dataset.map(function(value,index) { return value[1]; });
+
+  const chartSource = new chart($('#chart-source'), {
+    type: 'line',
+    data: {
+      labels: label,
+      datasets: [
+        { label:"Dataset", data:serie, backgroundColor:[blue[0]], fill: false, pointRadius:0 }
+      ]
+    },
+    options: {
+      scales: {
+        xAxes: [{
+          type: 'time',
+          time: {
+            displayFormats: {
+              quarter: 'MMM YYYY'
+            }
+          }
+        }]
       }
     }
-  };
-
-  var chart1 = new chartist.Line('#chart1',{},chartOpt);
-  var chart2 = new chartist.Line('#chart2',{},chartOpt);
-
-  var myDropzone = new dropzone("#uploadArea", {
-    url:'#',
-    autoProcessQueue: false,
-    acceptedFiles:'text/csv,application/vnd.ms-excel'
   });
 
-  myDropzone.on("addedfile", function(file) {
-    switch(file.type) {
-      case 'text/csv':
-      case 'application/vnd.ms-excel':
-        papa.parse(file, {
-          dynamicTyping: true,
-          complete: function(results) {
-            const {data} = results;
-            let table = `<p>${data.length} lines imported</p>
-            <table class="table">
-              <thead><tr><th>Date</th><th>Value</th></tr></thead>
-            <tbody>`;
-            _.forEach(_.take(data,6), function(value){
-              table = `${table}<tr>
-              <td>${value[0]}</td>
-              <td>${value[1]}</td>
-            </tr>`});
-            table = `${table}<tr><td>...</td><td>...</td></tr>`;
-            _.forEach(_.takeRight(data,6), function(value){
-              table = `${table}<tr>
-              <td>${value[0]}</td>
-              <td>${value[1]}</td>
-            </tr>`});
-            table = `${table}</tbody></table>`;
-            $('#dataTable').html(table);
+  return serie;
+}
 
-/*
-            const data_conv_dates = data.map(function(value,index) {
-              return [,value[1]];
-            });
+function constructGraphForecast(response,serie) {
+  const ds = Object.values(response.data.forecast.ds);
+  const yhat = Object.values(response.data.forecast.yhat);
+  const yhat_lower = Object.values(response.data.forecast.yhat_lower);
+  const yhat_upper = Object.values(response.data.forecast.yhat_upper);
 
-            downsampled = lttb.processData(data_conv_dates, displayedSamples);
-            let label = downsampled.map(function(value,index) { return value[0]; });
-            let serie = downsampled.map(function(value,index) { return value[1]; });
-*/
-            let label = data.map(function(value,index) { return moment(value[0]).unix(); });
-            let serie = data.map(function(value,index) { return value[1]; });
-
-            chart1.update({
-              labels: label,
-              series: [serie]
-            });
-
-            axios.post('http://127.0.0.1:5000/prophet/dataset', data)
-              .then(function (response) {
-                axios.get(`http://127.0.0.1:5000/prophet/${response.data.id}/predict/365`).then(function (response) {
-                  const ds = Object.values(response.data.forecast.ds);
-                  const yhat = Object.values(response.data.forecast.yhat);
-                  const yhat_lower = Object.values(response.data.forecast.yhat_lower);
-                  const yhat_upper = Object.values(response.data.forecast.yhat_upper);
-                  chart2.update({
-                    labels: ds,
-                    series: [yhat,yhat_lower,yhat_upper]
-                  });
-                }).catch(function (error) {
-                  console.log(error);
-                });
-              }).catch(function (error) {
-                console.log(error);
-              });
+  const chartForecast = new chart($('#chart-forecast'), {
+    type: 'line',
+    data: {
+      labels: ds,
+      datasets: [
+        { label:"Dataset", data:serie, backgroundColor:[blue[0]], fill: false, showLine:false },
+        { label:"yhat", data:yhat, backgroundColor:[blue[1]], fill: false, pointRadius:0 },
+        { label:"yhat_lower", data:yhat_lower, backgroundColor:[blue[2]], fill: 2, pointRadius:0 },
+        { label:"yhat_upper", data:yhat_upper, backgroundColor:[blue[3]], fill: 2, pointRadius:0 }
+      ]
+    },
+    options: {
+      scales: {
+        xAxes: [{
+          type: 'time',
+          time: {
+            displayFormats: {
+              quarter: 'MMM YYYY'
+            }
           }
-        });
-      break;
-      default:
-        console.log("Wrong type of file: "+file.type);
+        }]
+      }
     }
   });
+}
+
+function parse_file(file) {
+  papa.parse(file, {
+    dynamicTyping: true,
+    skipEmptyLines: 'greedy',
+    complete: function(results) {
+      if(!moment(results.data[0][0])._isValid)
+        results.data.shift();
+      const dataset = results.data;
+      constructTable(dataset);
+      const serie = constructGraphSource(dataset);
+      $("#send-data").on("click", function(e) {
+        $('.step3').removeClass('step3');
+        axios.post('http://127.0.0.1:5000/prophet/dataset', dataset).then(function(response) {
+          axios.get(`http://127.0.0.1:5000/prophet/${response.data.id}/predict/365`).then(function(response) {
+            constructGraphForecast(response, serie);
+          });
+        });
+      });
+    }
+  });
+}
+
+$(document).ready(function(){
+  document.getElementById("file").addEventListener("change", handleFiles, false);
+  function handleFiles() {
+      const file = _.last(this.files);
+      if(file.type === 'text/csv') {
+        $('#file-name').text(file.name);
+        $('div .file').removeClass('is-danger');
+        $('.step2').removeClass('step2');
+        parse_file(file);
+      } else {
+        $('div .file').addClass('is-danger');
+        $('#file-name').text('Please upload a csv...');
+      }
+  }
 });
