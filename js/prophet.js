@@ -119,8 +119,8 @@ function parse_file(file) {
       const serie = constructGraphSource(dataset);
       $("#send-data").on("click", function(e) {
         $('.step3').removeClass('step3');
-        axios.post('http://127.0.0.1:5000/prophet/dataset', dataset).then(function(response) {
-          axios.get(`http://127.0.0.1:5000/prophet/${response.data.id}/predict/365`).then(function(response) {
+        axios.post('/prophet/dataset', dataset).then(function(response) {
+          axios.get(`/prophet/${response.data.id}/predict/365`).then(function(response) {
             constructGraphForecast(response, serie);
           });
         });
