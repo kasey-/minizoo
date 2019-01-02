@@ -4,6 +4,7 @@ const _ = require('lodash');
 const $ = require('cash-dom');
 const moment = require('moment');
 const chart = require('chart.js');
+const mime = require('mime');
 
 /* *** Color palette *************** */
 const blue = [
@@ -133,14 +134,17 @@ $(document).ready(function(){
   document.getElementById("file").addEventListener("change", handleFiles, false);
   function handleFiles() {
       const file = _.last(this.files);
-      if(file.type === 'text/csv') {
-        $('#file-name').text(file.name);
-        $('div .file').removeClass('is-danger');
-        $('.step2').removeClass('step2');
-        parse_file(file);
-      } else {
-        $('div .file').addClass('is-danger');
-        $('#file-name').text('Please upload a csv...');
+      switch (mime.getExtension(file.type)) {
+        case 'csv':
+        case 'xls':
+          $('#file-name').text(file.name);
+          $('div .file').removeClass('is-danger');
+          $('.step2').removeClass('step2');
+          parse_file(file);
+        break;
+        default:
+          $('div .file').addClass('is-danger');
+          $('#file-name').text('Please upload a csv...');
       }
   }
 });
