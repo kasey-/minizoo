@@ -1,3 +1,6 @@
+const axios = require('axios');
+const $ = require('cash-dom');
+
 $(document).ready(function(){
 	var canvas  = document.querySelector('#canvas');
 	var context = canvas.getContext('2d');
@@ -102,12 +105,12 @@ $(document).ready(function(){
   $('input[type="submit"]').on('click', function(){
     var canvasObj = document.getElementById('canvas');
     var img = canvasObj.toDataURL();
-    qwest.post('/mnist/number', {'img':img})
-    .then(function(xhr, response){
+    axios.post('/mnist/number', {'img':img})
+    .then(function(response){
        $('#result').text(response[1]);
     })
-    .catch(function(e, xhr, response){
-       console.log(e, xhr, response);
+    .catch(function(error){
+       console.log(error);
     });
   });
 });

@@ -1,31 +1,42 @@
 #!/bin/sh
 
 # Cleanup
+echo "Cleanup"
 rm -rf output/* output-min/* js/*.bundle.js
+mkdir output/js
 
 # chatbot build
-cp js/apiai.js js/chatbot.merge.js
-cat js/chatbot.js >> js/chatbot.merge.js
-browserify js/chatbot.merge.js -o js/chatbot.bundle.js
-rm js/chatbot.merge.js
+echo "Build js chatbot"
+cp js/apiai.js output/js/chatbot.merge.js
+cat js/chatbot.js >> output/js/chatbot.merge.js
+browserify output/js/chatbot.merge.js -o output/js/chatbot.bundle.js
+rm output/js/chatbot.merge.js
 
 # js Build
-to_browserify="prophet"
+to_browserify="inception mnist prophet titanic"
 for b in $to_browserify; do
-  browserify js/${b}.js -o js/${b}.bundle.js
+  echo "Build js ${b}"
+  browserify js/${b}.js -o output/js/${b}.bundle.js
 done
 
 # Build
-staticjinja build --srcpath=templates --outpath=output
-cp -r img js css fonts output
+echo "Build website"
+staticjinja build --srcpath=templates --outpath=output 2>/dev/null
+echo "Copy ressources website (for min version)"
+cp -r img css fonts output
+cp js/bulma-navbar.js output/js
 
 if  [[ $1 = "-m" ]]; then
   # Minify
+  echo "Minify all html"
   html-minifier --file-ext html --input-dir output --output-dir output-min --remove-comments --collapse-whitespace --minify-js --minify-css
+  echo "Minify all css"
   html-minifier --file-ext css  --input-dir output --output-dir output-min --remove-comments --collapse-whitespace --minify-js --minify-css
+  echo "Copy ressources website"
   cp -r img fonts output-min
   mkdir output-min/js
-  for js in $(ls -1 js); do
-    terser js/$js -c -m > output-min/js/$js
+  for js in $(ls -1 output/js); do
+    echo "Minify js ${js}"
+    terser output/js/$js -c -m > output-min/js/$js
   done
 fi

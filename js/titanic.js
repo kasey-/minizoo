@@ -1,3 +1,6 @@
+const axios = require('axios');
+const $ = require('cash-dom');
+
 $(document).ready(function() {
   $('input[name=gender]').on('click',function(){
     if($('input[name=gender]:checked').val() == 1){
@@ -17,12 +20,12 @@ $(document).ready(function() {
       fare:$('input[name=fare]').val(),
       embarked:$('input[name=embarked]:checked').val()
     };
-    qwest.post('/titanic/passenger',passenger)
-     .then(function(xhr, response) {
+    axios.post('/titanic/passenger',passenger)
+     .then(function(response) {
         $('#results').text(Math.round((response*100))+"%");
      })
-     .catch(function(e, xhr, response) {
-        console.log(e, xhr, response);
+     .catch(function(error) {
+        console.log(error);
      });
   });
 });
