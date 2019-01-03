@@ -1,10 +1,19 @@
 #!/bin/sh
 
 # Cleanup
-rm -rf output/* output-min/* js/prophet.bundle.js
+rm -rf output/* output-min/* js/*.bundle.js
+
+# chatbot build
+cp js/apiai.js js/chatbot.merge.js
+cat js/chatbot.js >> js/chatbot.merge.js
+browserify js/chatbot.merge.js -o js/chatbot.bundle.js
+rm js/chatbot.merge.js
 
 # js Build
-browserify js/prophet.js -o js/prophet.bundle.js
+to_browserify="prophet"
+for b in $to_browserify; do
+  browserify js/${b}.js -o js/${b}.bundle.js
+done
 
 # Build
 staticjinja build --srcpath=templates --outpath=output
