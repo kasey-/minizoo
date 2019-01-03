@@ -1,3 +1,4 @@
+require('@babel/polyfill');
 const $ = require('cash-dom');
 
 $(document).ready(function() {

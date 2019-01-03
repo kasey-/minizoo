@@ -1,3 +1,4 @@
+require('@babel/polyfill');
 const papa = require('papaparse');
 const axios = require('axios');
 const _ = require('lodash');

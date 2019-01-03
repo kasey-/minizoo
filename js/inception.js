@@ -1,3 +1,4 @@
+require('@babel/polyfill');
 const Dropzone = require('dropzone');
 
 function forEach(array, fn) {
