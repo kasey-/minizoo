@@ -1,11 +1,11 @@
 require('@babel/polyfill');
-const papa = require('papaparse');
-const axios = require('axios');
 const _ = require('lodash');
 const $ = require('cash-dom');
+const axios = require('axios');
 const moment = require('moment');
-const chart = require('chart.js');
 const mime = require('mime');
+const papa = require('papaparse');
+const chart = require('chart.js');
 
 /* *** Color palette *************** */
 const blue = [
@@ -61,6 +61,7 @@ function constructGraphSource(dataset) {
       ]
     },
     options: {
+      responsive: true,
       scales: {
         xAxes: [{
           type: 'time',
@@ -95,6 +96,7 @@ function constructGraphForecast(response,serie) {
       ]
     },
     options: {
+      responsive: true,
       scales: {
         xAxes: [{
           type: 'time',
@@ -114,8 +116,7 @@ function parse_file(file) {
     dynamicTyping: true,
     skipEmptyLines: 'greedy',
     complete: function(results) {
-      if(!moment(results.data[0][0])._isValid)
-        results.data.shift();
+      if(!moment(results.data[0][0]).isValid()) results.data.shift();
       const dataset = results.data;
       constructTable(dataset);
       const serie = constructGraphSource(dataset);
