@@ -14,14 +14,15 @@ $(document).ready(function() {
   });
 
   $("#submit").on('click',function() {
-    var passenger = {
-      age:$('input[name=age]').val(),
-      sex:$('input[name=gender]:checked').val(),
-      pclass:$('input[name=pclass]:checked').val(),
-      fare:$('input[name=fare]').val(),
-      embarked:$('input[name=embarked]:checked').val()
-    };
-    axios.post('/titanic/passenger',passenger)
+    const config = { headers: { 'Content-Type': 'multipart/form-data' } };
+    const passenger = new FormData();
+    passenger.append('age', $('input[name=age]').val());
+    passenger.append('sex', $('input[name=gender]:checked').val());
+    passenger.append('pclass', $('input[name=pclass]:checked').val());
+    passenger.append('fare', $('input[name=fare]').val());
+    passenger.append('embarked', $('input[name=embarked]:checked').val());
+
+    axios.post('/titanic/passenger', passenger, config)
      .then(function(response) {
         $('#results').text(Math.round((response*100))+"%");
      })

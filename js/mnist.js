@@ -104,9 +104,11 @@ $(document).ready(function(){
   });
 
   $('input[type="submit"]').on('click', function(){
-    var canvasObj = document.getElementById('canvas');
-    var img = canvasObj.toDataURL();
-    axios.post('/mnist/number', {'img':img})
+    const canvasObj = document.getElementById('canvas');
+    const config = { headers: { 'Content-Type': 'multipart/form-data' } };
+	  const img = new FormData();
+    img.append('img', canvasObj.toDataURL());
+    axios.post('/mnist/number', img, config)
     .then(function(response){
        $('#result').text(response[1]);
     })
