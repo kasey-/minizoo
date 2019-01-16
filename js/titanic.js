@@ -24,7 +24,7 @@ $(document).ready(function() {
 
     axios.post('/titanic/passenger', passenger, config)
      .then(function(response) {
-        $('#results').text(Math.round((response*100))+"%");
+        $('#results').text(Math.round((response.data*100))+"%");
      })
      .catch(function(error) {
         console.log(error);
