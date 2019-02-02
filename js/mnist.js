@@ -110,7 +110,7 @@ $(document).ready(function(){
     img.append('img', canvasObj.toDataURL());
     axios.post('/mnist/number', img, config)
     .then(function(response){
-       $('#result').text(response.data[1]);
+       $('#result').text(response.data[0]);
     })
     .catch(function(error){
        console.log(error);
