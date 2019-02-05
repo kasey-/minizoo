@@ -123,7 +123,7 @@ function parse_file(file) {
       $("#send-data").on("click", function(e) {
         $('.step3').removeClass('step3');
         axios.post('/prophet/dataset', dataset).then(function(response) {
-          axios.get(`/prophet/${response.data.id}/predict/365`).then(function(response) {
+          axios.get(`/prophet/dataset/${response.data.id}/predict/365`).then(function(response) {
             constructGraphForecast(response, serie);
           });
         });
