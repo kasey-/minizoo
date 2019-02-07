@@ -122,11 +122,16 @@ function parse_file(file) {
       const serie = constructGraphSource(dataset);
       $("#send-data").on("click", function(e) {
         $('.step3').removeClass('step3');
-        axios.post('/prophet/dataset', dataset).then(function(response) {
-          axios.get(`/prophet/dataset/${response.data.id}/predict/365`).then(function(response) {
+        $('#loading').html(`
+          <span class="icon is-large">
+            <i class="fa fa-3x fa-spinner fa-pulse"></i>
+          </span>`);
+        axios.post('http://lucasfernandez.fr/prophet/dataset', dataset).then(function(response) {
+          axios.get(`http://lucasfernandez.fr/prophet/dataset/${response.data.id}/predict/365`).then(function(response) {
             constructGraphForecast(response, serie);
+            $('#loading').html('');
           });
-        });
+        }); /* Errors should be handled */
       });
     }
   });
