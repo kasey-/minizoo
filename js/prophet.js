@@ -126,8 +126,8 @@ function parse_file(file) {
           <span class="icon is-large">
             <i class="fa fa-3x fa-spinner fa-pulse"></i>
           </span>`);
-        axios.post('http://lucasfernandez.fr/prophet/dataset', dataset).then(function(response) {
-          axios.get(`http://lucasfernandez.fr/prophet/dataset/${response.data.id}/predict/365`).then(function(response) {
+        axios.post('/prophet/dataset', dataset).then(function(response) {
+          axios.get(`/prophet/dataset/${response.data.id}/predict/365`).then(function(response) {
             constructGraphForecast(response, serie);
             $('#loading').html('');
           });
