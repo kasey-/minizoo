@@ -13,7 +13,7 @@ npx browserify output/js/chatbot.merge.js -o output/js/chatbot.bundle.js -t babe
 rm output/js/chatbot.merge.js
 
 # js Build
-to_browserify="inception mnist prophet titanic"
+to_browserify="inception mnist prophet titanic gpt-2"
 for b in $to_browserify; do
   echo "Build js ${b}"
   npx browserify js/${b}.js -o output/js/${b}.bundle.js -t babelify

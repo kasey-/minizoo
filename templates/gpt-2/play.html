@@ -1,0 +1,34 @@
+{% extends "_project.html" %}
+{% set play = True %}
+{% block title %}GPT-2{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block js_scripts %}
+  {{ super() }}
+  <script src="/js/gpt-2.bundle.js"></script>
+{% endblock %}
+{% block content %}
+  {{ super() }}
+  <div class="columns">
+    <div class="column">
+      <div class="field has-addons">
+        <div class="control is-medium is-expanded" id="control">
+          <input
+            id="source"
+            class="input is-medium"
+            type="text"
+            placeholder="Type the first line of the text you want to generate"
+          >
+        </div>
+        <div class="control">
+          <a class="button is-primary is-medium" id="submit">
+            Generate
+          </a>
+        </div>
+      </div>
+      <div class="content is-medium has-text-justified" id="generated">
+      </div>
+    </div>
+  </div>
+{% endblock %}
