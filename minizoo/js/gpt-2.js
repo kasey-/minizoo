@@ -20,7 +20,7 @@ function checkAnswer(uuid) {
           $('#control').removeClass('is-loading');
           break;
         case 'pending':
-          setTimeout(checkAnswer(uuid),5000);
+          setTimeout(checkAnswer,5000,uuid);
           break;
         default:
           throw "Unknow error";
@@ -44,7 +44,7 @@ $(document).ready(function(){
       axios.post('/gpt-2/generate', data)
         .then(function(response){
           const uuid = response.data;
-          setTimeout(checkAnswer(uuid),5000);
+          setTimeout(checkAnswer,5000,uuid);
         })
         .catch(function(error){
           handleError(error);
