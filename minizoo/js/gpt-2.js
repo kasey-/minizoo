@@ -34,7 +34,7 @@ function checkAnswer(uuid) {
 $(document).ready(function(){
   $('#submit').on('click', function() {
     $('#control').addClass('is-loading');
-    $('#generated').html('<p>Generating text ... this can take up to one minute ...</p>');
+    $('#generated').html('<p>Generating text ... this takes on average two minutes ...</p>');
     const data = {
       text:$('#source').val(),
       length:150,
@@ -48,9 +48,6 @@ $(document).ready(function(){
         })
         .catch(function(error){
           handleError(error);
-        })
-        .then(function(){
-          $('#control').removeClass('is-loading');
         });
     }
   });
