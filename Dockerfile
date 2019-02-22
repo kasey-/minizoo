@@ -10,5 +10,6 @@ COPY minizoo.conf /etc/nginx/conf.d/
 COPY ./minizoo /usr/share/nginx
 WORKDIR /usr/share/nginx
 
+RUN mkdir output output-min
 RUN npm i
 RUN ./build.sh -m
