@@ -37,7 +37,7 @@ $(document).ready(function(){
     $('#generated').html('<p>Generating text ... this can take up to one minute ...</p>');
     const data = {
       text:$('#source').val(),
-      size:150,
+      length:150,
       top_k:40
     };
     if(data.text) {
