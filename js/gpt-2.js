@@ -2,8 +2,37 @@ require('@babel/polyfill');
 const $ = require('cash-dom');
 const axios = require('axios');
 
+function handleError(error) {
+  console.error(error);
+  $('#control').removeClass('is-loading');
+  $('#generated').html(`<article class="message is-danger">
+  <div class="message-body">Error while getting the api answer ... try again later.</div>
+  </article>`);
+}
+
+function checkAnswer(uuid) {
+  axios.get('/gpt-2/generate/'+uuid)
+    .then(function(response) {
+      switch (response.data.status) {
+        case 'done':
+          $('#generated').html(
+            `<p>${response.data.result.replace(/\n+/g, "<br />")}...</p>`);
+          $('#control').removeClass('is-loading');
+          break;
+        case 'pending':
+          setTimeout(checkAnswer(uuid),5000);
+          break;
+        default:
+          throw "Unknow error";
+      }
+    })
+    .catch(function(error){
+      handleError(error);
+    })
+}
+
 $(document).ready(function(){
-  $('#submit').on('click', function(){
+  $('#submit').on('click', function() {
     $('#control').addClass('is-loading');
     $('#generated').html('<p>Generating text ... this can take up to one minute ...</p>');
     const data = {
@@ -14,10 +43,11 @@ $(document).ready(function(){
     if(data.text) {
       axios.post('/gpt-2/generate', data)
         .then(function(response){
-          $('#generated').html(`<p>${response.data.replace(/\n+/g, "<br />")}...</p>`);
+          const uuid = response.data;
+          setTimeout(checkAnswer(uuid),5000);
         })
         .catch(function(error){
-          console.error(error);
+          handleError(error);
         })
         .then(function(){
           $('#control').removeClass('is-loading');
