@@ -1,4 +1,5 @@
-FROM nodeintegration/nginx-modsecurity
+#FROM nodeintegration/nginx-modsecurity
+FROM nginx
 
 RUN apt-get update && apt-get -y upgrade
 RUN apt-get -y install python python-pip curl
