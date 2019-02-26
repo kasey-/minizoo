@@ -3,5 +3,45 @@
 {% block title %}GPT-2{% endblock %}
 {% block content %}
     {{ super() }}
-    <pre> ... to do ...</pre>
+    <h2 class="title is-3">API</h2>
+    <h3 class="subtitle is-4">Generate</h3>
+    <div class="content">
+      <p>Request :</p>
+      <pre>curl -X POST https://lucasfernandez.fr/gpt-2/generate \
+        --header "Content-Type: application/json" \
+        --data '{"text":"To be, or not to be", "length":100, "top_k":40}'</pre>
+      <p>Answer :</p>
+      <pre>b32a4fc6c95d83e9f759d0fcc8ac875d852587e3</pre>
+    </div>
+    <h3 class="subtitle is-4">Get result</h3>
+    <div class="content">
+      <p>Request :</p>
+      <pre>curl -X GET https://lucasfernandez.fr/gpt-2/generate/b32a4fc6c95d83e9f759d0fcc8ac875d852587e3</pre>
+      <p>Answer if pending:</p>
+      <pre>{"status": "pending"}</pre>
+      <p>Answer if computed:</p>
+<pre>{
+  "status": "done",
+  "result": "To be, or not to be, not to be is not enough!\" he says and takes his left foot. The next
+  morning, when the house was set down, he found himself on the pavement for the only time he'd ever
+  known. He walked and sat in the front garden, thinking, \"What is this?\" Then he walked over to where
+  a young lady sat, and he said, \"What is this?\" Then he took a piece of grass at her heels, and put
+  the leaf with the root, and, to",
+  "task": {
+    "length": 100,
+    "text": "To be, or not to be",
+    "top_k": 40
+  }
+}</pre>
+    </div>
+    <h2 class="title is-3">Source</h2>
+    <div class="content">
+      <p>
+        <ul>
+          <li><a href="https://blog.openai.com/better-language-models/" target="_blank">OpenAI Blog</a></li>
+          <li><a href="https://github.com/openai/gpt-2" target="_blank">Github</a></li>
+          <li><a href="https://pypi.org/project/keras-gpt-2/" target="_blank">PIP Module</a></li>
+        </ul>
+      </p>
+    </div>
 {% endblock %}
