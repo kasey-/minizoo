@@ -48,7 +48,7 @@ RUN mkdir /etc/nginx/modsecurity-data && \
 #RUN apt update -q && apt -qy upgrade
 RUN apt -qy install python python-pip curl
 RUN curl -sL https://deb.nodesource.com/setup_11.x | bash -
-RUN apt install -qy nodejs
+RUN apt install -qy nodejs parallel
 RUN pip install staticjinja
 
 COPY minizoo.conf /etc/nginx/conf.d/

@@ -1,5 +1,21 @@
 #!/usr/bin/env bash
 
+# Check environment
+if ! type parallel > /dev/null; then
+  echo "parallel missing please install it..."
+  exit 1
+fi
+
+if ! type npx > /dev/null; then
+  echo "npx missing please install it..."
+  exit 1
+fi
+
+if ! type staticjinja > /dev/null; then
+  echo "staticjinja missing please install it..."
+  exit 1
+fi
+
 # Cleanup
 echo "Cleanup"
 rm -rf output/* output-min/* js/*.bundle.js
@@ -13,11 +29,12 @@ npx browserify output/js/chatbot.merge.js -o output/js/chatbot.bundle.js -t babe
 rm output/js/chatbot.merge.js
 
 # js Build
-to_browserify="inception mnist prophet titanic gpt-2"
-for b in $to_browserify; do
-  echo "Build js ${b}"
-  npx browserify js/${b}.js -o output/js/${b}.bundle.js -t babelify
-done
+to_browserify() { 
+  echo "Build js ${1}"
+  npx browserify js/${1}.js -o output/js/${1}.bundle.js -t babelify
+}
+export -f to_browserify
+parallel to_browserify ::: inception mnist prophet titanic gpt-2
 
 # Build
 echo "Build website"
@@ -25,6 +42,12 @@ staticjinja build --srcpath=templates --outpath=output
 echo "Copy ressources website"
 cp -r img css fonts output
 cp js/bulma-navbar.js output/js
+
+to_minify() { 
+  echo "Minify js ${1}"
+  npx terser output/js/${1} -c -m > output-min/js/${1}
+}
+export -f to_minify
 
 if  [[ $1 = "-m" ]]; then
   # Minify
@@ -35,8 +58,5 @@ if  [[ $1 = "-m" ]]; then
   echo "Copy ressources website (for min version)"
   cp -r img fonts output-min
   mkdir output-min/js
-  for js in $(ls -1 output/js); do
-    echo "Minify js ${js}"
-    npx terser output/js/$js -c -m > output-min/js/$js
-  done
+  parallel to_minify ::: $(ls -1 output/js)
 fi
