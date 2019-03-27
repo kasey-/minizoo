@@ -17,10 +17,10 @@
   },
   "homepage": "https://github.com/kasey-/minizoo#readme",
   "dependencies": {
-    "@babel/polyfill": "^7.2.5",
+    "@babel/polyfill": "^7.4.0",
     "axios": "^0.18.0",
     "cash-dom": "^2.3.9",
-    "chart.js": "^2.7.3",
+    "chart.js": "^2.8.0",
     "dropzone": "^5.5.1",
     "lodash": "^4.17.11",
     "mime": "^2.4.0",
@@ -29,16 +29,16 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.3.3",
-    "@babel/preset-env": "^7.3.1",
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
     "babelify": "^10.0.0",
     "browserify": "^16.2.3",
-    "eslint": "^5.14.1",
+    "eslint": "^5.15.3",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
     "html-minifier": "^3.5.21",
-    "terser": "^3.16.1"
+    "terser": "^3.17.0"
   }
 }
