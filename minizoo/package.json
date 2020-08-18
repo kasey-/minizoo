@@ -24,7 +24,7 @@
     "cash-dom": "^2.3.9",
     "chart.js": "^2.8.0",
     "dropzone": "^5.5.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.20",
     "mime": "^2.4.0",
     "moment": "^2.24.0",
     "papaparse": "^4.6.3",
