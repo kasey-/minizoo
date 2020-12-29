@@ -20,7 +20,7 @@
   "homepage": "https://github.com/kasey-/minizoo#readme",
   "dependencies": {
     "@babel/polyfill": "^7.4.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "cash-dom": "^2.3.9",
     "chart.js": "^2.8.0",
     "dropzone": "^5.5.1",
